@@ -24,5 +24,5 @@ module.exports = (sequelize, DataTypes) => {
 
     });
 
-    return Komik;
+    return Film;
 };
