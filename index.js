@@ -19,18 +19,18 @@ db.sequelize.sync().then((result) => {
     console.log(err);
 });
 
-app.post("/film", async (req, res) => {
+app.post("/films", async (req, res) => {
     const data = req.body;
     try {
-        const film = await db.Film.create(data);
-        res.send(film);
+        const films = await db.Film.create(data);
+        res.send(films );
     }
     catch (err) {
         res.send({ err });
     }
 });
 
-app.get("/film", async (req, res) => {
+app.get("/films", async (req, res) => {
     try {
         const films = await db.Film.findAll();
         res.send(films);
@@ -40,30 +40,30 @@ app.get("/film", async (req, res) => {
     }
 });
 
-app.put("/film/:id", async (req, res) => {
+app.put("/films/:id", async (req, res) => {
     const id = req.params.id;
     const data = req.body;
     try {
-        const film = await db.Film.findByPk(id);
-        if (!film) {
+        const films = await db.Film.findByPk(id);
+        if (!films) {
             return res.status(404).send({ message: "Film not found" });
         }
-        await film.update(data);
-        res.send({message: "Film updated successfully", film });
+        await films.update(data);
+        res.send({message: "Film updated successfully", films });
     }
     catch (err) {
         res.status(500).send({ err });
     }
 });
 
-app.delete("/film/:id", async (req, res) => {
+app.delete("/films/:id", async (req, res) => {
     const id = req.params.id;
     try {
-        const film = await db.Film.findByPk(id);
-        if (!film) {
+        const films = await db.Film.findByPk(id);
+        if (!films ) {
             return res.status(404).send({ message: "Film not found" });
         }
-        await film.destroy();
+        await films.destroy();
         res.send({ message: "Film deleted successfully" });
     }
     catch (err) {
